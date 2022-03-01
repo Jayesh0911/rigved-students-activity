@@ -1,0 +1,14 @@
+.heading{
+    color: darkred
+}
+.sub-heading{
+    color:aquamarine
+}
+@media (max-width:1024px) and (min-width:768px){
+    .heading{
+        background-color: yellow;
+    }
+    .sub-heading{
+        background-color: black;
+    }
+}
