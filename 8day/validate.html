@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Form</title>
+</head>
+<body>
+    <h2>Registration form page!</h2>
+    <form name="reg" action="../9day/calculate.html" method="post" onsubmit="return validate()">
+        <label>
+            FirstName : <input type="text" name="fn" autocomplete="off" placeholder="FirstName">
+        </label>
+        <br/>
+        <label>
+            LastName : <input type="text" name="ln" autocomplete="off" placeholder="FirstName">
+        </label>
+        <br/>
+        <label>
+            Password : <input type="password" name="pw" placeholder="Password">
+            Confirm Password : <input type="password" name="cpw" placeholder="Confirm Password">
+        </label>
+        <br/>
+        <label>
+            Gender : <input type="radio" name="gen" value="M">Male
+            <input type="radio" name="gen" value="F">FeMale
+        </label>
+        <br/>
+        <label>
+            Skills : <input type="checkbox" name="tech" value="Javascript">Javascript
+            &nbsp;  <input type="checkbox" name="tech" value="Python">Python
+            &nbsp;  <input type="checkbox" name="tech" value="C++">C++
+        </label>
+        <br/>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+    <script type="text/javascript" src="validate function.java"></script>
+</body>
+</html>
