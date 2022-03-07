@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10Day Activity</title>
+    <style>
+    body{
+        background-color: rgb(161, 72, 135);
+        }
+    table{
+        padding: 15px;
+    }
+    td{
+        padding: 15px;
+        text-align: right;
+    }
+    
+    </style>
+</head>
+<body>
+    <h2 style="margin-left: 15%;">
+        <table id="table" border="5" width="80%" style="background-color: rgb(62, 148, 170) ;">
+
+                <h2 style="text-align: center;width: 80%; border: 4px double rgb(241, 234, 234);"> TOP 5 PLAYERS</h2>
+            <thead>
+            <tr>
+                <th>Player-Id</th>
+                <th>Full-Name</th>
+                <th> State </th>
+                <th> City </th>
+            </tr>  
+           </thead>
+            <tbody id="tabledata" ></tbody>
+        </table>
+<center>
+        <script type="text/javascript">
+            var player = [
+                {playerId: 10, firstname: 'Sachin', lastname: 'Tendulkar', address: {state:'Maharashtra', city:'Mumbai' }},
+                {playerId: 15, firstname: 'Rahul', lastname: 'Dravid', address: {state:'Karnataka', city:'Bangalore' }},
+                {playerId: 77, firstname: 'Sourav', lastname: 'Ganguly', address: {state: 'West-Bengal', city:'Kolkata'}},
+                {playerId: 07, firstname: 'Rohit', lastname: 'Sharma', address: {state:'Maharashtra', city:'Pune' }},
+                {playerId: 11, firstname: 'Virat', lastname: 'Kohli', address: {state: 'Delhi', city:'Noida'}},
+
+            ];
+            var table = "<tbody>";
+            for(i=0; i<player.length ; i++){
+                table += "<tr>";
+                table += "<td>" + player[i].playerId + "</td>";
+                table += "<td>" + player[i].firstname +"   "+player[i].lastname+ "</td>";
+                table += "<td>" + player[i].address.state + "</td>";
+                table += "<td>" + player[i].address.city + "</td>";
+                table += "</tr>";
+            }
+            table += "</tbody>";
+            document.getElementById("tabledata").innerHTML=table;
+        </script>
+        </center>
+    </h2>
+</body>
+</html>
