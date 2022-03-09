@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAGE 3!</title>
+    <style>
+    body{
+        background-color: rgb(100, 80, 212);   
+    }
+    h1{
+        text-align: center;
+        border: 5pt outset rgb(88, 86, 86);
+        border-radius: 2em;
+        background-color: lightblue;
+    }
+    .inputstyle{
+            border: 2pt outset black;
+        }
+</style>
+</head>
+<body>
+    <h1>Third Page</h1>
+    <center>
+    <label style="font-size: larger;"><b>You can change your DATA here !</b></label> <br/> <br/>
+    <b>Edit Name :</b> &nbsp;<input class="inputstyle" id="e1" type="text" name="input3"><br> <br/>
+    <input style="background-color: lightgreen ;" type="button" name="btn2" value="   Edit    " onclick="editData()"> <br/><hr/>
+    <a href="page2.html"> Back ! </a>
+
+    <script>
+        function editData(){
+            var edit = document.getElementById('e1').value;
+            sessionStorage.setItem('user1',edit);
+        }
+        
+    </script>
+
+    </center>
+    
+</body>
+</html>

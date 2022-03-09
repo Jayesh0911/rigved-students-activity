@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAGE 1!</title>
+    <style>
+        body{
+            background-color: aquamarine;
+        }
+        h1{
+            text-align: center;
+            border: 5pt outset rgb(24, 201, 103);
+            border-radius: 2em;
+            background-color: rgb(230, 173, 221);"
+        }
+        .inputstyle{
+            border: 2pt outset black;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <h1>First Page</h1>
+    
+    <center>
+     <b>Enter Name :</b> <input type="text" class="inputstyle" id="n1" name="input1"> <br/> <br/>
+     <b>Enter Age :</b> &nbsp;&nbsp;<input type="number" class="inputstyle" id="a1" name="input2"> <br/><br/><hr/>
+     <input style="background-color: rgb(222, 144, 238) ;" type="button" name="btn1" value=" Submit " onclick="storeData()"> <br/><br/>
+     <a href="page2.html"> Next!</a>
+    </center>
+    <script type="text/javascript">
+        function storeData(){
+            var inp1 = document.getElementById('n1').value;
+            if(inp1.length < 2){
+                alert("ENTER NAME!");
+            }
+            else{
+                sessionStorage.setItem('user',inp1);
+            }
+
+            var inp2 = parseInt(document.getElementById('a1').value);
+
+                sessionStorage.setItem('user1',inp2);
+
+        }
+
+    </script>
+    
+</body>
+</html>
