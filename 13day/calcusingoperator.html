@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13 day act</title>
+    <style>
+        body{
+            background-color: rgb(244, 245, 239);
+            text-align: left;
+        }
+        h2{
+            background-color: rgb(78, 50, 205);
+        }
+    </style>
+</head>
+<body>
+    <h2>RestOperatorcalculation</h2>
+    <hr/>
+    <script type="text/javascript">
+        
+        function calci(a,...b){
+            let sum = a;
+            let max = a;
+            let min = a;
+        
+            for (i=0;i<b.length;i++){
+                sum += b[i];
+
+                if(min < b[i]){
+                    min = b[i];
+                }
+                if(max > b[i]){
+                    max = b[i];
+                }
+            }
+            document.write('<b><p>Sum Value: <b> ' +sum+'<b> <br/><br/> Min Value: <b>' +min+'<b> <br/> <br/> Max Value:<b> ' +max+'</p>');
+        }
+        calci(100,200,300,50,150,75);
+        
+    </script>
+
+    
+</body>
+</html>

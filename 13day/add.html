@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD</title>
+</head>
+<body>
+    <h2> Operator
+    </h2>
+    <script type = 'text/javascript'>
+        function value(a,...b)
+        {
+            this.a=a;
+            this.b=b;
+            sum=a;
+            min=a;
+            max=a;
+        for(i=0;i<b.length;i++)
+        {
+            sum=b[i];
+            if(min>b[i])
+            {
+                min=b[i];
+            }
+            if(max<b[i])
+            {
+                max=b[i];
+            }
+        }
+        document.write('Sum:' +sum+'<br>');
+        document.write('Min:' +min+'<br>');
+        document.write('Max:' +max);
+        }
+        value(100,200,300,55,155);
+    </script>
+</body>
+</html>
