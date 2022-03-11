@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbergenerator</title>
+    <style>
+        body{
+            background-color: rgb(196, 95, 182);
+        }
+        div{
+            text-align: left;
+            margin-top: 10%;
+            font-size: medium;
+            margin-right: 2%;   
+        }
+        h2{
+            text-align: left;
+            border :6pt outset rgb(228, 33, 33);
+            background-color: rgb(247, 247, 228);
+            width: 80%;
+            margin-left: 8%;
+            padding: 5px;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Generate Number</h2><br/> 
+        <label class="c1"><strong>Randomly : <label id = "i1"></label></strong><br/>
+        <br/>
+        <script>
+        let x = (Math.floor(Math.random()*2000));
+        document.getElementById("i1").innerHTML = x;
+        let x1 = String(x);
+        let r1 = x1.padStart(6,"0") 
+        document.write(`<strong><p>Generated Number : ${r1}</p><strong>`);
+        </script>
+        </label>
+        </div>
+</body>
+</html>
