@@ -1,0 +1,114 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employee_db        |
+| information_schema |
+| marksheet_db       |
+| mysql              |
+| performance_schema |
+| rigved_db          |
+|                    |
+|sys                |
++--------------------+
+8 rows in set (0.10 sec)
+
+mysql> use marksheet_db;
+Database changed
+mysql> create table student(Roll_no int primary key , Name varchar(10) , Age int);
+Query OK, 0 rows affected (1.41 sec)
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_no | int         | NO   | PRI | NULL    |       |
+| Name    | varchar(10) | YES  |     | NULL    |       |
+| Age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.09 sec)
+
+mysql> insert into student values(1 , 'Raj' , 20);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student values(2 , 'Ramesh' ,20);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into student values(3, ' Ravi' ,21);
+Query OK, 1 row affected (0.10 sec)
+
+mysql>  insert into student values(4 ,  'Suraj' ,22);
+Query OK, 1 row affected (0.14 sec)
+
+mysql>  select * from student;
++---------+--------+------+
+| Roll_no | Name   | Age  |
++---------+--------+------+
+|       1 | Raj    |   20 |
+|       2 | Ramesh |   20 |
+|       3 |  Ravi  |   21 |
+|       4 | Suraj  |   22 |
++---------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql>  create table mark(Mid int , Physics int , Maths int , Chemistry int , Student_roll int , foreign key (Student_roll) references students(Roll_no));
+ERROR 1824 (HY000): Failed 
+mysql>  create table mark(Mid int , Physics int , Maths int , Chemistry int , Student_roll int , foreign key (Student_roll) references student(Roll_no));
+Query OK, 0 rows affected (0.62 sec)
+
+mysql>  desc mark;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Mid          | int  | YES  |     | NULL    |       |
+| Physics      | int  | YES  |     | NULL    |       |
+| Maths        | int  | YES  |     | NULL    |       |
+| Chemistry    | int  | YES  |     | NULL    |       |
+| Student_roll | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into mark values(11,70,80,70,2);
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into mark values(22,80,80,80,1);
+Query OK, 1 row affected (0.15 sec)
+
+mysql>  insert into mark values(33,90,90,70,3);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into mark values(44,88,88,77,4);
+Query OK, 1 row affected (0.21 sec)
+
+mysql> select * from mark;
++------+---------+-------+-----------+--------------+
+| Mid  | Physics | Maths | Chemistry | Student_roll |
++------+---------+-------+-----------+--------------+
+|   11 |      70 |    80 |        70 |            2 |
+|   22 |      80 |    80 |        80 |            1 |
+|   33 |      90 |    90 |        70 |            3 |
+|   44 |      88 |    88 |        77 |            4 |
++------+---------+-------+-----------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select  Mid,Physics,Maths,Chemistry,Physics+Maths+Chemistry AS Total from mark;
++------+---------+-------+-----------+-------+
+| Mid  | Physics | Maths | Chemistry | Total |
++------+---------+-------+-----------+-------+
+|   11 |      70 |    80 |        70 |   220 |
+|   22 |      80 |    80 |        80 |   240 |
+|   33 |      90 |    90 |        70 |   250 |
+|   44 |      88 |    88 |        77 |   253 |
++------+---------+-------+-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select student.Roll_no, student.Name,mark.Physics,mark.Maths,mark.Chemistry,(Physics+Maths+Chemistry) AS Total,((Physics+Maths+Chemistry)/3) AS Average from student INNER JOIN mark on student.Roll_no = mark.Student_roll;
++---------+--------+---------+-------+-----------+-------+---------+
+| Roll_no | Name   | Physics | Maths | Chemistry | Total | Average |
++---------+--------+---------+-------+-----------+-------+---------+
+|       1 | Raj    |      80 |    80 |        80 |   240 | 80.0000 |
+|       2 | Ramesh |      70 |    80 |        70 |   220 | 73.3333 |
+|       3 |  Ravi  |      90 |    90 |        70 |   250 | 83.3333 |
+|       4 | Suraj  |      88 |    88 |        77 |   253 | 84.3333 |
++---------+--------+---------+-------+-----------+-------+---------+
+4 rows in set (0.14 sec)
