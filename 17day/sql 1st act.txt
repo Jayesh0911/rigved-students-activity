@@ -1,0 +1,234 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employe_table      |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+mysql> use employe_table;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table t1(sno int,tname varchar(10));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show tables;
++-------------------------+
+| Tables_in_employe_table |
++-------------------------+
+| t1                      |
++-------------------------+
+1 row in set (0.01 sec)
+
+mysql> create table t2(tno int primary key, tname varchar(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++-------------------------+
+| Tables_in_employe_table |
++-------------------------+
+| t1                      |
+| t2                      |
++-------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select tno,tname from t2;
+Empty set (0.02 sec)
+
+mysql> insert into t2 values(100,'Jay');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select* from t2;
++-----+-------+
+| tno | tname |
++-----+-------+
+| 100 | Jay   |
++-----+-------+
+1 row in set (0.04 sec)
+
+mysql> select tno from t2;
++-----+
+| tno |
++-----+
+| 100 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> insert into t2 values(200,'kalp');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into t2 values(300,'raj');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from t2;
++-----+--------+
+| tno | tname  |
++-----+--------+
+| 100 | Jay    |
+| 200 | kalp   |
+| 300 | raj    |
++-----+--------+
+3 rows in set (0.00 sec)
+
+mysql> select tname from t2;
++--------+
+| tname  |
++--------+
+| Jay    |
+| kalp   |
+| raj    |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> alter table t2 add column tx int;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc t2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| tno   | int         | NO   | PRI | NULL    |       |
+| tname | varchar(10) | YES  |     | NULL    |       |
+| tx    | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> select* from t2;
++-----+--------+------+
+| tno | tname  | tx   |
++-----+--------+------+
+| 100 | Jay    | NULL |
+| 200 | kalp   | NULL |
+| 300 | raj    | NULL |
++-----+--------+------+
+3 rows in set (0.01 sec)
+
+mysql> drop table t1;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++-------------------------+
+| Tables_in_employe_table |
++-------------------------+
+| t2                      |
++-------------------------+
+1 row in set (0.04 sec)
+
+mysql> create table employee(eid int primary key,ename varchar(20)not null,age int check(age >= 18 || age<=60),email varchar(50) unique);
+Query OK, 0 rows affected, 1 warning (0.09 sec)
+
+mysql> insert into employee value(200,'kalp',28,'kal12@gmail.com');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into employee value(100,'Jay',38,'jak11@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee value(300,'raj',58,'raj22@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-----+-------+------+------------------+
+| eid | ename | age  | email            |
++-----+-------+------+------------------+
+| 100 | kalp  |   38 | kal12@gmail.com  |
+| 200 | Jay   |   28 | jak11@gmail.com  |
+| 300 | raj   |   58 | raj22@gmail.com  |
++-----+-------+------+------------------+
+3 rows in set (0.01 sec)
+
+mysql> alter table employee add column pan varchar(20) unique;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from employee;
++-----+-------+------+------------------+------+
+| eid | ename | age  | email            | pan  |
++-----+-------+------+------------------+------+
+| 100 | kalp  |   38 | kal12@gmail.com  | NULL |
+| 200 | Jay   |   28 | jak11@gmail.com  | NULL |
+| 300 | raj   |   58 | raj22@gmail.com  | NULL |
++-----+-------+------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee add column aadhar varchar(20) unique;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from employee;
++-----+-------+------+------------------+------+--------+
+| eid | ename | age  | email            | pan  | aadhar |
++-----+-------+------+------------------+------+--------+
+| 100 | kalp  |   38 | kal12@gmail.com  | NULL | NULL   |
+| 200 | Jay   |   28 | jak11@gmail.com  | NULL | NULL   |
+| 300 | raj   |   58 | raj22@gmail.com  | NULL | NULL   |
++-----+-------+------+------------------+------+--------+
+3 rows in set (0.00 sec)
+mysql> update employee set pan=12333 where eid=100;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from employee;
++-----+-------+------+------------------+-------+--------+
+| eid | ename | age  | email            | pan   | aadhar |
++-----+-------+------+------------------+-------+--------+
+| 100 | kalp  |   38 | kal12@gmail.com  | 12333 | NULL   |
+| 200 | Jay   |   28 | jak11@gmail.com  | NULL  | NULL   |
+| 300 | raj   |   58 | raj22@gmail.com  | NULL  | NULL   |
++-----+-------+------+------------------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update employee set pan='aa205d06'where eid=200;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set pan='aa3605d06'where eid=300;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set aadhar='aa36ss6'where eid=300;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set aadhar='a36ss6'where eid=200;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set aadhar='a3d6a5sd6ss6'where eid=100;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from employee;
++-----+-------+------+------------------+-----------+--------------+
+| eid | ename | age  | email            | pan       | aadhar       |
++-----+-------+------+------------------+-----------+--------------+
+| 100 | kalp  |   38 | kal12@gmail.com | 12333     | a3d6a5sd6ss6 |
+| 200 | Jay   |   28 | jak11@gmail.com | aa205d06  | a36ss6       |
+| 300 | raj   |   58 | raj22@gmail.com | aa3605d06 | aa36ss6      |
++-----+-------+------+------------------+-----------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> alter table employee drop column pan;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee drop column aadhar;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from employee;
++-----+-------+------+------------------+
+| eid | ename | age  | email            |
++-----+-------+------+------------------+
+| 100 | kalp  |   38 | kal12@gmail.com  |
+| 200 | Jay   |   28 | jak11@gmail.com  |
+| 300 | raj   |   58 | raj22@gmail.com  |
++-----+-------+------+------------------+
+3 rows in set (0.00 sec)
+mysql> drop table employee;
+Query OK, 0 rows affected (0.03 sec)

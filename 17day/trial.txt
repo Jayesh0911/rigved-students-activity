@@ -1,0 +1,278 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employee_db        |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use employee_db;
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_employee_db |
++-----------------------+
+| employee              |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql> Drop employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee' at line 1
+mysql> Drop table employee;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> creat table emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat table emp' at line 1
+mysql> creat table emp(Emp_id int primary key, Emp_name varchar(20) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat table emp(Emp_id int primary key, Emp_name varchar(20) not null)' at line 1
+mysql> create table emp(Emp_id int primary key, Emp_name varchar(20) not null);
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Emp_id   | int         | NO   | PRI | NULL    |       |
+| Emp_name | varchar(20) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.03 sec)
+
+mysql> alter table emp add Age int;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp add check(Age >= 18 || Age <= 60);
+Query OK, 0 rows affected, 1 warning (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Emp_id   | int         | NO   | PRI | NULL    |       |
+| Emp_name | varchar(20) | NO   |     | NULL    |       |
+| Age      | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> insert into emp values(100,'Alex',15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emp' at line 1
+mysql> select from * emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from * emp' at line 1
+mysql> select * from emp;
++--------+----------+------+
+| Emp_id | Emp_name | Age  |
++--------+----------+------+
+|    100 | Alex     |   15 |
++--------+----------+------+
+1 row in set (0.00 sec)
+
+mysql> Alter table emp DROP Age;
+Query OK, 0 rows affected (0.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++--------+----------+
+| Emp_id | Emp_name |
++--------+----------+
+|    100 | Alex     |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> Alter table emp
+    -> Add Age int;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++--------+----------+------+
+| Emp_id | Emp_name | Age  |
++--------+----------+------+
+|    100 | Alex     | NULL |
++--------+----------+------+
+1 row in set (0.00 sec)
+
+mysql> Alter table emp
+    -> Add CONSTRAIN check(Age >= 18 OR Age <= 60);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'check(Age >= 18 OR Age <= 60)' at line 2
+mysql> Alter table emp
+    -> Add CONSTRAINT check(Age >= 18 OR Age <= 60);
+Query OK, 1 row affected (0.21 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++--------+----------+------+
+| Emp_id | Emp_name | Age  |
++--------+----------+------+
+|    100 | Alex     | NULL |
++--------+----------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(101,'Bruce',15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++--------+----------+------+
+| Emp_id | Emp_name | Age  |
++--------+----------+------+
+|    100 | Alex     | NULL |
+|    101 | Bruce    |   15 |
++--------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp values(null,'adj',22);
+ERROR 1048 (23000): Column 'Emp_id' cannot be null
+mysql> Alter table emp
+    -> Add Emp_email varchar(20);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp values(102,'David',22,'sashbchac@.com');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from emp;
++--------+----------+------+----------------+
+| Emp_id | Emp_name | Age  | Emp_email      |
++--------+----------+------+----------------+
+|    100 | Alex     | NULL | NULL           |
+|    101 | Bruce    |   15 | NULL           |
+|    102 | David    |   22 | sashbchac@.com |
++--------+----------+------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(102,'David',22,'sashbchac@.com');
+ERROR 1062 (23000): Duplicate entry '102' for key 'emp.PRIMARY'
+mysql> insert into emp values(103,'David',22,'sashbchac@.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++--------+----------+------+----------------+
+| Emp_id | Emp_name | Age  | Emp_email      |
++--------+----------+------+----------------+
+|    100 | Alex     | NULL | NULL           |
+|    101 | Bruce    |   15 | NULL           |
+|    102 | David    |   22 | sashbchac@.com |
+|    103 | David    |   22 | sashbchac@.com |
++--------+----------+------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> Alter table emp
+    -> Modify Emp_email varchar(15) UNIQUE;
+ERROR 1062 (23000): Duplicate entry 'sashbchac@.com' for key 'emp.Emp_email'
+mysql> select * from emp;
++--------+----------+------+----------------+
+| Emp_id | Emp_name | Age  | Emp_email      |
++--------+----------+------+----------------+
+|    100 | Alex     | NULL | NULL           |
+|    101 | Bruce    |   15 | NULL           |
+|    102 | David    |   22 | sashbchac@.com |
+|    103 | David    |   22 | sashbchac@.com |
++--------+----------+------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> Alter table emp
+    -> Drop Emp_id = 103;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 103' at line 2
+mysql> Alter table emp
+    -> Delete Emp_id = 103;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Delete Emp_id = 103' at line 2
+mysql> Alter table emp
+    -> Delete Emp_id = 103;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Delete Emp_id = 103' at line 2
+mysql> DELETE from emp where Emp_id = 103;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from emp;
++--------+----------+------+----------------+
+| Emp_id | Emp_name | Age  | Emp_email      |
++--------+----------+------+----------------+
+|    100 | Alex     | NULL | NULL           |
+|    101 | Bruce    |   15 | NULL           |
+|    102 | David    |   22 | sashbchac@.com |
++--------+----------+------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> Alter table emp
+    -> Add Pan varchar(15), Add Aadhar int(15);
+Query OK, 0 rows affected, 1 warning (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from emp;
++--------+----------+------+----------------+------+--------+
+| Emp_id | Emp_name | Age  | Emp_email      | Pan  | Aadhar |
++--------+----------+------+----------------+------+--------+
+|    100 | Alex     | NULL | NULL           | NULL |   NULL |
+|    101 | Bruce    |   15 | NULL           | NULL |   NULL |
+|    102 | David    |   22 | sashbchac@.com | NULL |   NULL |
++--------+----------+------+----------------+------+--------+
+3 rows in set (0.01 sec)
+
+mysql> Alter table emp
+    -> Modify Pan varchar(15) UNIQUE;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter table emp
+    -> Modify Aadhar int(15) UNIQUE;
+Query OK, 0 rows affected, 1 warning (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> insert into emp values(103,'charles',32,'casccb23@.com','cahcn32',237472);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values(104,'charles',32,'casccb23@.com','cahcn32',237472);
+ERROR 1062 (23000): Duplicate entry 'cahcn32' for key 'emp.Pan'
+mysql> insert into emp values(104,'charles',32,'casccb23@.com','cahn32',237472);
+ERROR 1062 (23000): Duplicate entry '237472' for key 'emp.Aadhar'
+mysql> insert into emp values(104,'charly',32,'casccb23@.com','cahn32',23742);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++--------+----------+------+----------------+---------+--------+
+| Emp_id | Emp_name | Age  | Emp_email      | Pan     | Aadhar |
++--------+----------+------+----------------+---------+--------+
+|    100 | Alex     | NULL | NULL           | NULL    |   NULL |
+|    101 | Bruce    |   15 | NULL           | NULL    |   NULL |
+|    102 | David    |   22 | sashbchac@.com | NULL    |   NULL |
+|    103 | charles  |   32 | casccb23@.com  | cahcn32 | 237472 |
+|    104 | charly   |   32 | casccb23@.com  | cahn32  |  23742 |
++--------+----------+------+----------------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> Alter table emp
+    -> DROP column (Pan,Aadhar);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(Pan,Aadhar)' at line 2
+mysql> Alter table emp
+    -> drop Pan;
+Query OK, 0 rows affected (0.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter table emp
+    -> drop Aadhar;
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++--------+----------+------+----------------+
+| Emp_id | Emp_name | Age  | Emp_email      |
++--------+----------+------+----------------+
+|    100 | Alex     | NULL | NULL           |
+|    101 | Bruce    |   15 | NULL           |
+|    102 | David    |   22 | sashbchac@.com |
+|    103 | charles  |   32 | casccb23@.com  |
+|    104 | charly   |   32 | casccb23@.com  |
++--------+----------+------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DROP table emp;
+Query OK, 0 rows affected (0.08 sec)
