@@ -1,0 +1,71 @@
+desc person ##
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int         | NO   | PRI | NULL    |       |
+| NAME   | varchar(20) | NO   |     | NULL    |       |
+| GENDER | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+-----------------------------------------------------------------------------------------
+
+mysql> create procedure salutation(in p_id int)
+    -> begin
+    -> declare p_name varchar(20);
+    -> declare p_gender varchar(10);
+    -> select NAME into p_name from  person where ID =p_id;
+    -> select GENDER into p_gender from person where ID =p_id;
+    -> if p_gender ='Male'
+    -> then update person set NAME = concat('Mr.',p_name) where ID =p_id;
+    -> else update person set NAME = concat('Ms.',p_name) where ID =p_id;
+    -> end if;
+    -> end
+    -> ##
+Query OK, 0 rows affected (0.03 sec)
+
+-----------------------------------------------------------------------------------------
+
+mysql> select *from person ##
++----+---------+--------+
+| ID | NAME    | GENDER |
++----+---------+--------+
+| 10 | Raj     | Male   |
+| 20 | Alia    | Female |
+| 30 | Poonam  | Female |
+| 40 | Gulshan | Male   |
+| 50 | Anjali  | Female |
+| 60 | Kumar   | Male   |
++----+---------+--------+
+6 rows in set (0.02 sec)
+
+mysql> call salutation(10)##
+Query OK, 1 row affected (0.03 sec)
+
+mysql> call salutation(20)##
+Query OK, 1 row affected (0.01 sec)
+
+mysql> call salutation(30)##
+Query OK, 1 row affected (0.02 sec)
+
+mysql> call salutation(40)##
+Query OK, 1 row affected (0.02 sec)
+
+mysql> call salutation(50)##
+Query OK, 1 row affected (0.03 sec)
+
+mysql> call salutation(60)##
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select *from person##
++----+------------+--------+
+| ID | NAME       | GENDER |
++----+------------+--------+
+| 10 | Mr.Raj     | Male   |
+| 20 | Ms.Alia    | Female |
+| 30 | Ms.Poonam  | Female |
+| 40 | Mr.Gulshan | Male   |
+| 50 | Ms.Anjali  | Female |
+| 60 | Mr.Kumar   | Male   |
++----+------------+--------+
+6 rows in set (0.00 sec)

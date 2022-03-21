@@ -1,0 +1,101 @@
+mysql> create table USER(USER_ID int primary key auto_increment,USER_NAME varchar(20),PASSWORD varchar(20))##
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc user
+    -> ##
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| USER_ID   | int         | NO   | PRI | NULL    | auto_increment |
+| USER_NAME | varchar(20) | YES  |     | NULL    |                |
+| PASSWORD  | varchar(20) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> insert into user(USER_NAME,PASSWORD) values('Raj' ,'raj123')##
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into user(USER_NAME,PASSWORD) values('Alia' ,'alia321')##
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from user##
++---------+-----------+----------+
+| USER_ID | USER_NAME | PASSWORD |
++---------+-----------+----------+
+|       1 | Raj       | raj123   |
+|       2 | Alia      | alia321  |
++---------+-----------+----------+
+2 rows in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------
+
+mysql> create table update_user(USER_ID int ,USER_NAME varchar(20),OLD_PASSWORD varchar(20),TIME_UPDATED time)##
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc update_user
+    -> ##
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| USER_ID      | int         | YES  |     | NULL    |       |
+| USER_NAME    | varchar(20) | YES  |     | NULL    |       |
+| OLD_PASSWORD | varchar(20) | YES  |     | NULL    |       |
+| TIME_UPDATED | time        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+---------------------------------------------------------------------------------------------------
+
+mysql> create trigger user_history
+    -> before update on user for each row
+    -> begin
+    -> insert into update_user values(old.USER_ID,old.USER_NAME,old.PASSWORD,current_time());
+    -> end
+    -> ##
+Query OK, 0 rows affected (0.04 sec)
+--------------------------------------------------------------
+
+mysql> update user set PASSWORD ='alia789' where USER_ID = 2##
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from user##
++---------+-----------+----------+
+| USER_ID | USER_NAME | PASSWORD |
++---------+-----------+----------+
+|       1 | Raj       | raj123   |
+|       2 | Alia      | alia789  |
++---------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select *from update_user##
++---------+-----------+--------------+--------------+
+| USER_ID | USER_NAME | OLD_PASSWORD | TIME_UPDATED |
++---------+-----------+--------------+--------------+
+|       2 | Alia      | alia321      | 20:23:08     |
++---------+-----------+--------------+--------------+
+1 row in set (0.00 sec)
+
+------------------------------------------------------------------------
+
+mysql> update user set PASSWORD ='alex2422' where USER_ID = 1##
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from update_user##
++---------+-----------+--------------+--------------+
+| USER_ID | USER_NAME | OLD_PASSWORD | TIME_UPDATED |
++---------+-----------+--------------+--------------+
+|       2 | Alia      | alia321      | 20:23:08     |
+|       1 | Raj       | raj123       | 20:28:54     |
++---------+-----------+--------------+--------------+
+2 rows in set (0.02 sec)
+
+mysql> select *from user##
++---------+-----------+----------+
+| USER_ID | USER_NAME | PASSWORD |
++---------+-----------+----------+
+|       1 | Raj       | alex2422 |
+|       2 | Alia      | alia789  |
++---------+-----------+----------+
+2 rows in set (0.02 sec)
