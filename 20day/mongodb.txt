@@ -1,0 +1,137 @@
+> db.createCollection("employee");
+{ "ok" : 1 }
+> db.createCollection("EMPLOYEE");
+{ "ok" : 1 }
+
+> show collections;
+EMPLOYEE
+employee
+myCollection
+> db.employee.insertOne({name:"Jayesh"});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6238570f1f6497e925a82e0f")
+}
+
+> db.employee.insertOne({_id:1 , name:"ganesh"});
+{ "acknowledged" : true, "insertedId" : 1 }
+
+> db.employee.find();
+{ "_id" : ObjectId("6238570f1f6497e925a82e0f"), "name" : "Jayesh" }
+{ "_id" : 1, "name" : "ganesh" }
+
+> db.EMPLOYEE.insertOne({_id:10, name:"Aniket"});
+{ "acknowledged" : true, "insertedId" : 10 }
+
+> db.EMPLOYEE.insertOne({name:"Bhupya"});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("623859621f6497e925a82e10")
+}
+
+> db.EMPLOYEE.find();
+{ "_id" : 10, "name" : "Aniket" }
+{ "_id" : ObjectId("623859621f6497e925a82e10"), "name" : "Bhupya" }
+
+
+> db.createCollection("user");
+{ "ok" : 1 }
+
+> db.user.insertMany([
+... {_id : 1 , name : "Jayesh", password:"Jayesh@123"},
+... {_id : 2, name : "Ganesh", password :"Gani@242"},
+... {_id : 3, name:"Jay ", password: "jay@789"}
+... ]);
+{ "acknowledged" : true, "insertedIds" : [ 1, 2, 3 ] }
+
+> db.user.find();
+{ "_id" : 1, "name" : "Jayesh", "password" : "Jayesh@123" }
+{ "_id" : 2, "name" : "Ganesh", "password" : "Gani@242" }
+{ "_id" : 3, "name" : "Jay ", "password" : "jay@789" }
+
+db.user.insertMany([ {_id : 4 , name : "Prathama", password:"Prathama@123"}, {_id : 5, name : "Rakesh", password :"Rakesh@242"}, {_id : 6, name:"Raj", password: "devil@789"} ]);
+{ "acknowledged" : true, "insertedIds" : [ 4, 5, 6 ] }
+
+> db.user.find();
+{ "_id" : 1, "name" : "Jayesh", "password" : "Jayesh@123" }
+{ "_id" : 2, "name" : "Ganesh", "password" : "Gani@242" }
+{ "_id" : 3, "name" : "Jay ", "password" : "jay@789" }
+{ "_id" : 4, "name" : "Prathama", "password" : "Prathama@123" }
+{ "_id" : 5, "name" : "Rakesh", "password" : "Rakesh@242" }
+{ "_id" : 6, "name" : "Raj", "password" : "devil@789" }
+
+> db.user.find({_id:1});
+{ "_id" : 1, "name" : "Jayesh", "password" : "Jayesh@123" }
+
+> db.user.find({_id:2});
+{ "_id" : 2, "name" : "Ganesh", "password" : "Gani@242" }
+
+> db.user.find({_id:6});
+{ "_id" : 6, "name" : "Raj", "password" : "devil@789" }
+
+> db.user.remove({_id:5});
+WriteResult({ "nRemoved" : 1 })
+> db.user.find();
+{ "_id" : 1, "name" : "Jayesh", "password" : "Jayesh@123" }
+{ "_id" : 2, "name" : "Ganesh", "password" : "Gani@242" }
+{ "_id" : 3, "name" : "Jay ", "password" : "jay@789" }
+{ "_id" : 4, "name" : "Prathama", "password" : "Prathama@123" }
+{ "_id" : 6, "name" : "Raj", "password" : "devil@789" }
+
+> db.user.remove({_id:3});
+WriteResult({ "nRemoved" : 1 })
+> db.user.find();
+{ "_id" : 1, "name" : "Jayesh", "password" : "Jayesh@123" }
+{ "_id" : 2, "name" : "Ganesh", "password" : "Gani@242" }
+{ "_id" : 4, "name" : "Prathama", "password" : "Prathama@123" }
+{ "_id" : 6, "name" : "Raj", "password" : "devil@789" }
+
+> db.user.remove({});
+WriteResult({ "nRemoved" : 4 })
+
+> db.user.find(); //nothing will print as the collection is empty!
+
+> db.user.insertOne({_id:0, name:"Aniket",password:"Aniket123"});
+{ "acknowledged" : true, "insertedId" : 0 }
+
+> db.user.insertOne({_id:1, name:"Alex",password:"Alex123"});
+{ "acknowledged" : true, "insertedId" : 1 }
+
+> db.user.find();
+{ "_id" : 0, "name" : "Aniket", "password" : "Aniket123" }
+{ "_id" : 1, "name" : "Alex", "password" : "Alex123" }
+
+> db.user.insertMany([ {_id : 4 , name : "Prathama", password:"Prathama@123"}, {_id : 5, name : "Rakesh", password :"Rakesh@242"}, {_id : 6, name:"Raj", password: "devil@789"} ]);
+{ "acknowledged" : true, "insertedIds" : [ 4, 5, 6 ] }
+
+
+> db.user.insertMany([{_id:0, name:"Aniket", password:Aniket123"}, {_id : 1 , name : "Jayesh", password:"Jayesh@123"}, {_id : 2, name : "Ganesh", password :"Gani@242"}, {_id : 3, name:"Jay ", password: "jay@789"} ]);
+{ "acknowledged" : true, "insertedIds" : [ 0, 1, 2, 3 ] }
+
+
+> db.user.find();
+{ "_id" : 0, "name" : "Aniket", "password" : "Aniket123" }
+{ "_id" : 4, "name" : "Prathama", "password" : "Prathama@123" }
+{ "_id" : 5, "name" : "Rakesh", "password" : "Rakesh@242" }
+{ "_id" : 6, "name" : "Raj", "password" : "devil@789" }
+{ "_id" : 1, "name" : "Jayesh", "password" : "Jayesh@123" }
+{ "_id" : 2, "name" : "Ganesh", "password" : "Gani@242" }
+{ "_id" : 3, "name" : "Jay ", "password" : "jay@789" }
+
+> db.user.update({_id:0},{$set:{password:'Aniket987'}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.user.update({_id:1},{$set:{password:'Jayesh123'}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.user.update({_id:3},{$set:{password:'demon07'}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.user.find();
+{ "_id" : 0, "name" : "Aniket", "password" : "Aniket987" }
+{ "_id" : 4, "name" : "Prathama", "password" : "Prathama@123" }
+{ "_id" : 5, "name" : "Rakesh", "password" : "Rakesh@242" }
+{ "_id" : 6, "name" : "Raj", "password" : "devil@789" }
+{ "_id" : 1, "name" : "Jayesh", "password" : "Jayesh123" }
+{ "_id" : 2, "name" : "Ganesh", "password" : "Gani@242" }
+{ "_id" : 3, "name" : "Jay ", "password" : "demon07" }
