@@ -1,0 +1,48 @@
+> show collections
+EMPLOYEE
+myCollection
+user
+
+user
+> db.createCollection("generateid");
+{ "ok" : 1 }
+
+> show collections
+EMPLOYEE
+generateid
+myCollection
+user
+
+> db.generateid.insert({_id:'created_id',sequence_value:0});
+WriteResult({ "nInserted" : 1 })
+
+> db.generateid.find();
+{ "_id" : "created_id", "sequence_value" : 0 }
+
+> function autogenerate(sequenceValue){
+... var increment = db.generateid.findAndModify({
+... query:{_id:sequenceValue},
+... update:{$inc:{sequence_value: 1}}
+... ,new :true});
+... return increment.sequence_value;
+... }
+
+
+> db.generateid.insert({_id:autogenerate('created_id'), name:'Jayesh',age:27});
+WriteResult({ "nInserted" : 1 })
+
+> db.generateid.find();
+{ "_id" : "created_id", "sequence_value" : 1 }
+{ "_id" : 1, "name" : "Jayesh", "age" : 27 }
+
+>  db.generateid.insert({_id:autogenerate('created_id'), name:'GANESH',age:28});
+WriteResult({ "nInserted" : 1 })
+
+> db.generateid.insert({_id:autogenerate('created_id'), name:'Aniket',age:24});
+WriteResult({ "nInserted" : 1 })
+
+> db.generateid.find();
+{ "_id" : "created_id", "sequence_value" : 3 }
+{ "_id" : 1, "name" : "Jayesh", "age" : 27 }
+{ "_id" : 2, "name" : "Ganesh", "age" : 28 }
+{ "_id" : 3, "name" : "Aniket", "age" : 24 }

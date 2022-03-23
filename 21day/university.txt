@@ -1,0 +1,36 @@
+> show collections
+EMPLOYEE
+generateid
+myCollection
+student
+user
+
+> db.student.insert({_id:'unversity_id', sequence_value:0});
+WriteResult({ "nInserted" : 1 })
+
+> function getValue(sequenceValue){
+...  let university = db.student.findAndModify({
+...  query: {_id : sequenceValue},
+...  update:{$inc:{sequence_value:1}},
+...  new: true})
+...  return "ABC"+university.sequence_value;
+...  }
+
+> db.student.insert({_id:getValue('unversity_id'),name:"MANISH",marks:49});
+WriteResult({ "nInserted" : 1 })
+
+> db.student.find();
+{ "_id" : "unversity_id", "sequence_value" : 1 }
+{ "_id" : "ABC1", "name" : "MANISH", "marks" : 49 }
+
+> db.student.insert({_id:getValue('unversity_id'),name:"ARAV",marks:89});
+WriteResult({ "nInserted" : 1 })
+
+> db.student.insert({_id:getValue('unversity_id'),name:"ELXI",marks:79});
+WriteResult({ "nInserted" : 1 })
+
+> db.student.find();
+{ "_id" : "unversity_id", "sequence_value" : 3 }
+{ "_id" : "ABC1", "name" : "MANISH", "marks" : 49 }
+{ "_id" : "ABC2", "name" : "ARAV", "marks" : 89 }
+{ "_id" : "ABC3", "name" : "ELXI", "marks" : 79 }
