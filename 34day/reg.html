@@ -1,0 +1,79 @@
+<div class="col-md-6 text-left rounded shadow py-3 container-fluid" style="background-color: rgb(235, 185, 84);margin-top: 2%;">
+    <h2 style="text-align:center;color: brown">User Registration Form </h2> 
+    <hr/>   
+    <form #user = "ngForm" (ngSubmit)="onSubmit(user.value)" >
+       <div class="row" style="margin-left: 70px;"> 
+        <div class="col-5">
+            <b>FirstName :</b> 
+            <input placeholder="Firstname" type="text" name="fn" autocomplete="off" ngModel #tf1="ngModel" required minlength="3" class="form-control"> &nbsp;
+            <span [hidden]="tf1.valid || tf1.pristine" class="text-danger"><b>*More than 3 Letters!</b></span>
+        </div><br/>
+
+        <div class="col-5">
+            <b>LastName :</b> 
+            <input placeholder="Lastname" type="text" name="ln" autocomplete="off" ngModel #tf2="ngModel" required minlength="2" class="form-control"> &nbsp;
+            <span [hidden]="tf2.valid ||tf2.pristine " class="text-danger"><b>*More than 2 Letters!</b></span>
+        </div><br/>
+        
+    </div><br/>
+    
+        <div style="margin-left: 80px;">
+            <b>Gender : </b> &nbsp;
+            <input type="radio" name="gn" value="male" ngModel #tf3="ngModel"   required="required" > Male &nbsp;
+            <input type="radio" name="gn" value="female" ngModel #tf3="ngModel" required> Female &nbsp;
+            <span [hidden]="tf3.valid||tf3.pristine " class="text-danger"><b>*Must select anyone!</b></span>
+        </div><br/>
+
+        <div class="row">
+            <div class="col-6" style="margin-left: 80px;"><br/>
+                <b>Skills : &nbsp;</b>
+                <input type="checkbox" name="checkbox"  ngModel #tf4="ngModel" required > JAVA &nbsp;
+                <input type="checkbox" name="checkbox"  ngModel #tf4="ngModel" required> C &nbsp;
+                <input type="checkbox" name="checkbox"  ngModel #tf4="ngModel" required> C++ &nbsp;
+                <input type="checkbox" name="checkbox"  ngModel #tf4="ngModel" required> PYTHON &nbsp;
+                <span  [hidden]="tf4.valid||tf4.pristine " class="text-danger"><b>*Must select!</b></span>
+            </div>
+    
+            <div class="col-4"><br/>
+                <b>Qualification : &nbsp;</b>
+                <select name="qf" ngModel #tf5="ngModel" required>
+                    <option>BE</option>
+                    <option>MBA</option>
+                    <option>M.TECH</option>
+                </select>
+                <span [hidden]="tf5.valid||tf5.pristine" class="text-danger"><b>*Must select</b> </span>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row" >
+            <div class="col-2" style="margin-left: 80px;">
+            <b>Address : &nbsp;</b>
+            </div>
+
+            <div class="col">
+                <textarea placeholder="Enter your Current or Permanent Address...." rows="4" cols="45" name="adrs" ngModel #tf6="ngModel" required></textarea><br/>
+                <span [hidden]="tf6.valid||tf6.pristine " class="text-danger"><b>*Address is Mandatory</b></span>
+            </div>
+        </div>
+        <br/>
+        <div style="margin-left: 32%;">
+            <div class="px-5 py-4">
+                <button name="submit" style="margin-left:100px" class="btn btn-primary btn-lg ms-2" [disabled]="user.invalid">Submit Form</button>
+            </div>
+        </div>
+        
+    </form>
+</div>
+<br/>
+<div class="col-md-6 text-left rounded shadow py-3 container-fluid" style="background-color: rgb(133, 186, 186);margin-top: 3%;text-align: center;" [hidden]="user.invalid">
+    <h3>Details Entered!</h3>
+    <b> Your FirstName : {{tf1.value}} </b> <br/>
+    <b> Your LastName : {{tf2.value}} </b> <br/>
+    <b> Your Gender : {{tf3.value}} </b> <br/>
+    <b> Your Skills : {{tf4.value}} </b> <br/>
+    <b> Your Qualification : {{tf5.value}} </b> <br/>
+    <b> Your Address : {{tf6.value}} </b> <br>
+</div>
+<br/>
+<br/>
